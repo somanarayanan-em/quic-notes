@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const db = require("./db");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -7,12 +8,8 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-// In-memory store (resets when the server restarts)
-const notes = [];
-let nextId = 1;
-
 app.get("/api/notes", (req, res) => {
-  res.json(notes);
+  res.json(db.listNotes());
 });
 
 app.post("/api/notes", (req, res) => {
@@ -20,9 +17,7 @@ app.post("/api/notes", (req, res) => {
   if (!text) {
     return res.status(400).json({ error: "text is required" });
   }
-  const note = { id: nextId++, text, createdAt: new Date().toISOString() };
-  notes.push(note);
-  res.status(201).json(note);
+  res.status(201).json(db.addNote(text));
 });
 
 app.listen(PORT, () => {

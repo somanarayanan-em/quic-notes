@@ -17,4 +17,4 @@ npm start
 | GET | `/api/notes` | List notes |
 | POST | `/api/notes` | Create a note (`{ "text": "..." }`) |
 
-Notes are stored in memory and reset on restart.
+Notes are stored in a local CSV file, `data/notes.csv` (columns: `id,text,createdAt`), created automatically on first use. It persists across restarts and is git-ignored.
