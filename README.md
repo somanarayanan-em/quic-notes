@@ -1,4 +1,4 @@
-# fullstack-demo
+# quic-notes
 
 A tiny notes app: one HTML page (`public/index.html`) and one API (`server.js`, Express).
 
